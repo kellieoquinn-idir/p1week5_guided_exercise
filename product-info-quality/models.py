@@ -1,5 +1,5 @@
 #This file handles all the models in our database. Helps establishes schema and internal relationships
-from sqlalchemy import Column, ForeignKey, Integer, String, Boolean, DateTime, Text
+from sqlalchemy import Column, Numeric, ForeignKey, Integer, String, Boolean, DateTime, Text, Numeric
 from sqlalchemy.orm import declarative_base, relationship
 from datetime import datetime
 import json
@@ -14,8 +14,11 @@ class Product(DBModelBase):
     description = Column(Text, nullable=False)
     attributes = Column(Text, nullable=True)
     information_score = Column(Integer, nullable=False, default=0)
+    barcode = Column(Numeric, nullable=False, default=0)
+    price = Column(String(255), nullable=False, default=0)
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow)
     updated_at = Column(DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
 
     def set_attributes(self, data: dict):
         self.attributes = json.dumps(data)
